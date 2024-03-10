@@ -1,7 +1,11 @@
 import { API_URL } from "@/environment/environment";
 import axios from "axios";
 
-export const getStudyTopic = ({ token }: { token: string }) => {
+export interface TokenType {
+  token: string;
+}
+
+export const getStudyTopic = ({ token }: TokenType) => {
   return {
     api() {
       return axios
@@ -14,6 +18,23 @@ export const getStudyTopic = ({ token }: { token: string }) => {
     },
     getKey() {
       return ["getStudyTopic"];
+    },
+  };
+};
+
+export const deleteStudyTopic = ({ token }: TokenType) => {
+  return {
+    api(input: string) {
+      return axios
+        .delete(`${API_URL}/study/topic/${input}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => data);
+    },
+    getKey() {
+      return ["deleteStudyTopic"];
     },
   };
 };
