@@ -42,27 +42,19 @@ export default function DashboardLayout({
                     <div className="flex-1">
                       <ul className="px-4 space-y-4">
                         <li>
-                          <Link
-                            passHref
-                            href={ROUTES.DASHBOARD.HOME}
-                            // className={`${
-                            //   path === ROUTES.DASHBOARD.HOME ? "active" : null
-                            // }`}
-                          >
+                          <Link passHref href={ROUTES.DASHBOARD.HOME}>
                             <span>Dashboard</span>
                           </Link>
                         </li>
 
                         <li>
-                          <Link
-                            passHref
-                            href={ROUTES.DASHBOARD.STUDY_TOPIC}
-                            // className={`${
-                            //   path.includes(ROUTES.DASHBOARD.ORDERS.HOME)
-                            //     ? "active"
-                            //     : null
-                            // }`}
-                          >
+                          <Link passHref href={ROUTES.DASHBOARD.SCHEDULES}>
+                            <span>Schedules</span>
+                          </Link>
+                        </li>
+
+                        <li>
+                          <Link passHref href={ROUTES.DASHBOARD.STUDY_TOPIC}>
                             <span>Study Topic</span>
                           </Link>
                         </li>

@@ -1,5 +1,4 @@
 export const ROUTES = {
-  DASHBOARD: { HOME: "/dashboard", STUDY_TOPIC: "/dashboard/study-topic" },
   LOG_IN: (redirectUrl?: string) => {
     if (redirectUrl) {
       return `/login?redirect=${redirectUrl}`;
@@ -7,4 +6,9 @@ export const ROUTES = {
     return `/login`;
   },
   REGISTRATION: "/",
+  DASHBOARD: {
+    HOME: "/dashboard",
+    STUDY_TOPIC: "/dashboard/study-topic",
+    SCHEDULES: "/dashboard/schedules",
+  },
 } as const;
