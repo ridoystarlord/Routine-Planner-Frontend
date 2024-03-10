@@ -34,6 +34,14 @@ Start the server
   npm run dev
 ```
 
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  yarn test
+```
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env.development file. (Make sure you already run the Backend)
@@ -43,7 +51,7 @@ NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1`
 
 ## Build
 
-To run this project use
+To build this project use
 
 ```bash
   npm run build
