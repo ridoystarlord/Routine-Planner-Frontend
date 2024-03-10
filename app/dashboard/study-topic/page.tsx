@@ -1,5 +1,5 @@
 import { ROUTES } from "@/Routes";
-import StudyTopicPage from "@/components/StudyTopicPage/StudyTopicPage";
+import { StudyTopicPage } from "@/components/StudyTopicPage";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

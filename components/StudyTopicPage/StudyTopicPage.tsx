@@ -46,7 +46,7 @@ const AddStudyTopicSchema = z.object({
 
 export type AddStudyTopicFormType = z.infer<typeof AddStudyTopicSchema>;
 
-const StudyTopicPage = ({ token }: Props) => {
+export function StudyTopicPage({ token }: Props) {
   const queryClient = useQueryClient();
   const form = useForm<AddStudyTopicFormType>({
     resolver: zodResolver(AddStudyTopicSchema),
@@ -182,6 +182,4 @@ const StudyTopicPage = ({ token }: Props) => {
       </Modal>
     </>
   );
-};
-
-export default StudyTopicPage;
+}
