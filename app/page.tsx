@@ -1,4 +1,5 @@
 import { ROUTES } from "@/Routes";
+import { Logout } from "@/components/Logout";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -9,8 +10,9 @@ export default function Home() {
     return null;
   }
   return (
-    <div className="h-screen flex items-center justify-center">
-      I am Account{accessToken}
+    <div className="w-screen h-screen flex items-center justify-center">
+      I am Account
+      <Logout />
     </div>
   );
 }
