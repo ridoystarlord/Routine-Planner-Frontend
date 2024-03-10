@@ -26,7 +26,7 @@ export const columns: ColumnDef<Schedules>[] = [
     cell: ({ row }) => {
       const startTime = new Date(row.getValue("startTime"));
 
-      return <div>{startTime.toLocaleTimeString()}</div>;
+      return <div>{startTime.toLocaleString()}</div>;
     },
   },
   {
@@ -35,7 +35,7 @@ export const columns: ColumnDef<Schedules>[] = [
     cell: ({ row }) => {
       const endTime = new Date(row.getValue("endTime"));
 
-      return <div>{endTime.toLocaleTimeString()}</div>;
+      return <div>{endTime.toLocaleString()}</div>;
     },
   },
   {

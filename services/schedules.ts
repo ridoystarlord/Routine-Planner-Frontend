@@ -22,11 +22,11 @@ export const getSchedules = ({ token }: TokenType) => {
   };
 };
 
-export const deleteStudyTopic = ({ token }: TokenType) => {
+export const deleteSchedules = ({ token }: TokenType) => {
   return {
     api(input: string) {
       return axios
-        .delete(`${API_URL}/study/topic/${input}`, {
+        .delete(`${API_URL}/schedule/${input}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -34,16 +34,16 @@ export const deleteStudyTopic = ({ token }: TokenType) => {
         .then(({ data }) => data);
     },
     getKey() {
-      return ["deleteStudyTopic"];
+      return ["deleteSchedules"];
     },
   };
 };
 
-export const addStudyTopic = ({ token }: TokenType) => {
+export const addSchedules = ({ token }: TokenType) => {
   return {
     api(input: any) {
       return axios
-        .post(`${API_URL}/study/topic`, input, {
+        .post(`${API_URL}/schedule`, input, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -51,7 +51,7 @@ export const addStudyTopic = ({ token }: TokenType) => {
         .then(({ data }) => data);
     },
     getKey() {
-      return ["addStudyTopic"];
+      return ["addSchedules"];
     },
   };
 };
