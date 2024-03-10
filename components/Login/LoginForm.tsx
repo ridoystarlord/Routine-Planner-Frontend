@@ -5,7 +5,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Cookies from "js-cookie";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -20,6 +26,8 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError, isAxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { ROUTES } from "@/Routes";
 
 const LoginSchema = z.object({
   email: z.string().min(1, {
@@ -47,9 +55,12 @@ export function LoginForm() {
     mutationFn: api,
     onSuccess(data: any) {
       Cookies.set("token", data?.data?.token, { expires: 30 });
+      router.push(
+        searchParams.get("redirect")
+          ? (searchParams.get("redirect") as string)
+          : ROUTES.DASHBOARD.HOME
+      );
       form.reset();
-
-      router.push(searchParams.get("redirect") as string);
     },
     onError: (err: Error | AxiosError<any>) => {
       if (isAxiosError(err)) {
@@ -125,6 +136,16 @@ export function LoginForm() {
             </form>
           </Form>
         </CardContent>
+        <CardFooter>
+          <div className="w-full">
+            <div className="text-center">
+              <span>Don&apos;t have an Account? </span>
+              <Link href={ROUTES.REGISTRATION} className="text-blue-700">
+                Register
+              </Link>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

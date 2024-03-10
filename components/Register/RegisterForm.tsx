@@ -5,7 +5,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -21,6 +27,7 @@ import { AxiosError, isAxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/Routes";
+import Link from "next/link";
 
 const RegisterSchema = z.object({
   name: z.string().min(2, {
@@ -140,6 +147,16 @@ export function RegisterForm() {
             </form>
           </Form>
         </CardContent>
+        <CardFooter>
+          <div className="w-full">
+            <div className="text-center">
+              <span>Already have an Account? </span>
+              <Link href={ROUTES.LOG_IN()} className="text-blue-700">
+                Login
+              </Link>
+            </div>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

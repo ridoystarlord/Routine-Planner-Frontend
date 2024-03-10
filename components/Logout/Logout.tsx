@@ -11,7 +11,7 @@ export function Logout() {
       type="button"
       onClick={() => {
         document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-        router.push(ROUTES.LOG_IN("/"));
+        router.push(ROUTES.LOG_IN(""));
       }}
     >
       Logout
