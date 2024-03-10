@@ -21,15 +21,20 @@ export const columns: ColumnDef<StudyTopic>[] = [
     accessorKey: "priority",
     header: () => <div className="font-semibold text-black">Priority</div>,
     cell: ({ row }) => {
-      const duration = parseFloat(row.getValue("duration"));
+      const priority = parseFloat(row.getValue("duration"));
 
       return (
-        <div>{duration === 1 ? "High" : duration === 2 ? "Medium" : "Low"}</div>
+        <div>{priority === 1 ? "High" : priority === 2 ? "Medium" : "Low"}</div>
       );
     },
   },
   {
     accessorKey: "duration",
     header: () => <div className="font-semibold text-black">Duration</div>,
+    cell: ({ row }) => {
+      const duration = parseInt(row.getValue("duration"));
+
+      return <div>{`${duration} Minutes`}</div>;
+    },
   },
 ];

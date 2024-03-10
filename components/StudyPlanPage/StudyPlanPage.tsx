@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { addDays, format } from "date-fns";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,6 +18,8 @@ import { CalendarIcon } from "@radix-ui/react-icons";
 
 import { Calendar } from "@/components/ui/calendar";
 
+import { ROUTES } from "@/Routes";
+import { formatDateToYYYYMMDD } from "@/app/utils";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -26,10 +28,11 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { getUserStudyPlan } from "@/services/user";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { ROUTES } from "@/Routes";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { DataTable } from "../Datatable";
+import { Card } from "../ui/card";
+import { columns } from "./columns";
 
 interface Props {
   token: string;
@@ -59,7 +62,6 @@ export function StudyPlanPage({ token }: Props) {
     if (timerId != null) {
       clearTimeout(timerId);
     }
-
     const updateQuery = () => {
       router.push(
         `${ROUTES.DASHBOARD.HOME}?startDate=${newQuery.startDate}&endDate=${newQuery.endDate}`
@@ -71,8 +73,8 @@ export function StudyPlanPage({ token }: Props) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     debouncedUpdateQuery({
-      startDate: new Date(data.date.from).toISOString().split("T")[0],
-      endDate: new Date(data.date.to).toISOString().split("T")[0],
+      startDate: formatDateToYYYYMMDD(data.date.from) as string,
+      endDate: formatDateToYYYYMMDD(data.date.to) as string,
     });
   }
 
@@ -80,17 +82,15 @@ export function StudyPlanPage({ token }: Props) {
     token: token,
     startDate: startDate
       ? startDate
-      : (new Date().toISOString().split("T")[0] as string),
+      : (formatDateToYYYYMMDD(new Date()) as string),
     endDate: endDate
       ? endDate
-      : (new Date(addDays(new Date(), 7))
-          .toISOString()
-          .split("T")[0] as string),
+      : (formatDateToYYYYMMDD(addDays(new Date(), 7)) as string),
   });
   const { data } = useQuery({
     queryKey: getKey(),
     queryFn: api,
-    enabled: Boolean(startDate && endDate),
+    enabled: Boolean(startDate) && Boolean(endDate),
   });
 
   return (
@@ -107,7 +107,7 @@ export function StudyPlanPage({ token }: Props) {
                 name="date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Date of birth</FormLabel>
+                    <FormLabel>Select Date Range</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -158,6 +158,9 @@ export function StudyPlanPage({ token }: Props) {
             </form>
           </Form>
         </div>
+        <Card>
+          <DataTable columns={columns} data={data ? data?.data : []} />
+        </Card>
       </div>
     </>
   );

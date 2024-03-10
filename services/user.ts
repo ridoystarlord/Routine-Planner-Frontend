@@ -31,7 +31,9 @@ export const getUserStudyPlan = ({
         .then(({ data }) => data);
     },
     getKey() {
-      return ["getUserStudyPlan"];
+      const fstartDate = startDate ? startDate : "0";
+      const fendDate = endDate ? endDate : "0";
+      return ["getUserStudyPlan", fstartDate, fendDate];
     },
   };
 };
