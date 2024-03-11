@@ -42,6 +42,7 @@ export type LoginUserFormType = z.infer<typeof LoginSchema>;
 
 export function LoginForm() {
   const searchParams = useSearchParams();
+  // const redirect = searchParams.get("redirect");
   const router = useRouter();
   const form = useForm<LoginUserFormType>({
     resolver: zodResolver(LoginSchema),
@@ -55,11 +56,8 @@ export function LoginForm() {
     mutationFn: api,
     onSuccess(data: any) {
       Cookies.set("token", data?.data?.token, { expires: 30 });
-      router.push(
-        searchParams.get("redirect")
-          ? (searchParams.get("redirect") as string)
-          : ROUTES.DASHBOARD.HOME
-      );
+      // router.push(redirect ? redirect : ROUTES.DASHBOARD.HOME);
+      router.push(ROUTES.DASHBOARD.HOME);
       form.reset();
     },
     onError: (err: Error | AxiosError<any>) => {

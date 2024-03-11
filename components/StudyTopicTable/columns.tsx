@@ -21,7 +21,7 @@ export const columns: ColumnDef<StudyTopic>[] = [
     accessorKey: "priority",
     header: () => <div className="font-semibold text-black">Priority</div>,
     cell: ({ row }) => {
-      const priority = parseFloat(row.getValue("duration"));
+      const priority = parseFloat(row.getValue("priority"));
 
       return (
         <div>{priority === 1 ? "High" : priority === 2 ? "Medium" : "Low"}</div>
