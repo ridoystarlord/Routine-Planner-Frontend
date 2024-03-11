@@ -1,6 +1,10 @@
 "use client";
 
-import { deleteStudyTopic, getStudyTopic } from "@/services/studyTopic";
+import {
+  deleteStudyTopic,
+  getStudyTopic,
+  updateStudyTopic,
+} from "@/services/studyTopic";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { DataTable } from "../Datatable";
 import { StudyTopic, columns } from "./columns";
@@ -20,6 +24,7 @@ const StudyTopicTable = ({ token }: Props) => {
     null
   );
   const [showModal, setShowModal] = useState(false);
+  const [showFinishedTopicModal, setShowFinishedTopicModal] = useState(false);
   const { api, getKey } = getStudyTopic({ token: token });
   const { data } = useQuery({ queryKey: getKey(), queryFn: api });
   const { api: deleteStudyTopicApi } = deleteStudyTopic({ token });
@@ -28,6 +33,14 @@ const StudyTopicTable = ({ token }: Props) => {
     onSuccess(data) {
       queryClient.invalidateQueries();
       setShowModal(false);
+    },
+  });
+  const { api: updateApi } = updateStudyTopic({ token });
+  const { mutateAsync: updateMutateAsync } = useMutation({
+    mutationFn: updateApi,
+    onSuccess(data) {
+      queryClient.invalidateQueries();
+      setShowFinishedTopicModal(false);
     },
   });
   const handleDelete = () => {
@@ -43,6 +56,22 @@ const StudyTopicTable = ({ token }: Props) => {
       }
     );
   };
+  const handleCompleteTheTopic = () => {
+    toast.promise(
+      updateMutateAsync({
+        id: currentStudyTopic?.id,
+        isComplete: true,
+      }),
+      {
+        loading: "Updating",
+        success: "Study Topic Mark as Complete successful!",
+        error: "Error! updating Study Topic",
+      },
+      {
+        id: "update-study-topic",
+      }
+    );
+  };
   return (
     <>
       <Card>
@@ -55,8 +84,19 @@ const StudyTopicTable = ({ token }: Props) => {
                 <div className="font-semibold text-black">Actions</div>
               ),
               cell: ({ row }) => {
+                const isComplete = row.original.isComplete;
                 return (
-                  <div>
+                  <div className="flex gap-2">
+                    <Button
+                      disabled={isComplete}
+                      variant="default"
+                      onClick={() => {
+                        setCurrentStudyTopic(row.original);
+                        setShowFinishedTopicModal(true);
+                      }}
+                    >
+                      Complete
+                    </Button>
                     <Button
                       variant="destructive"
                       onClick={() => {
@@ -90,6 +130,27 @@ const StudyTopicTable = ({ token }: Props) => {
               Cancel
             </Button>
             <Button variant="default" onClick={handleDelete}>
+              Confirm
+            </Button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        show={showFinishedTopicModal}
+        setShow={setShowFinishedTopicModal}
+        title="Are you sure want to mark this topic as finished?"
+      >
+        <div className="flex justify-end">
+          <div className="flex gap-3">
+            <Button
+              variant="destructive"
+              onClick={() => {
+                setShowFinishedTopicModal(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button variant="default" onClick={handleCompleteTheTopic}>
               Confirm
             </Button>
           </div>

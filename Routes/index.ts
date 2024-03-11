@@ -10,5 +10,6 @@ export const ROUTES = {
     HOME: "/dashboard",
     STUDY_TOPIC: "/dashboard/study-topic",
     SCHEDULES: "/dashboard/schedules",
+    AVAILABLE_TIME: "/dashboard/available-time",
   },
 } as const;

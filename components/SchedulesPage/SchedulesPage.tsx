@@ -134,6 +134,9 @@ export function SchedulesPage({ token }: Props) {
   return (
     <>
       <div className="space-y-3">
+        <Card>
+          <h1 className="text-3xl px-4 py-2 font-semibold">Schedules</h1>
+        </Card>
         <div>
           <Button
             variant="default"

@@ -39,6 +39,23 @@ export const deleteStudyTopic = ({ token }: TokenType) => {
   };
 };
 
+export const updateStudyTopic = ({ token }: TokenType) => {
+  return {
+    api(input: any) {
+      return axios
+        .put(`${API_URL}/study/topic/${input.id}`, input, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => data);
+    },
+    getKey() {
+      return ["updateStudyTopic"];
+    },
+  };
+};
+
 export const addStudyTopic = ({ token }: TokenType) => {
   return {
     api(input: any) {

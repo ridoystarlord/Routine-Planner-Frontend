@@ -52,6 +52,11 @@ export default function DashboardLayout({
                             <span>Schedules</span>
                           </Link>
                         </li>
+                        <li>
+                          <Link passHref href={ROUTES.DASHBOARD.AVAILABLE_TIME}>
+                            <span>Available Time</span>
+                          </Link>
+                        </li>
 
                         <li>
                           <Link passHref href={ROUTES.DASHBOARD.STUDY_TOPIC}>

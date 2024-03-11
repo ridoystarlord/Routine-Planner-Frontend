@@ -9,6 +9,7 @@ export type StudyTopic = {
   topic: string;
   priority: number;
   duration: number;
+  isComplete: boolean;
 };
 
 export const columns: ColumnDef<StudyTopic>[] = [

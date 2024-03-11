@@ -27,6 +27,7 @@ import { Input } from "../ui/input";
 import { addStudyTopic } from "@/services/studyTopic";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { Card } from "../ui/card";
 
 interface Props {
   token: string;
@@ -86,6 +87,9 @@ export function StudyTopicPage({ token }: Props) {
   return (
     <>
       <div className="space-y-3">
+        <Card>
+          <h1 className="text-3xl px-4 py-2 font-semibold">Study Topics</h1>
+        </Card>
         <div>
           <Button
             variant="default"
