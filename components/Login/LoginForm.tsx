@@ -1,9 +1,6 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import Cookies from "js-cookie";
+import { ROUTES } from "@/Routes";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,12 +19,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoginUser } from "@/services/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError, isAxiosError } from "axios";
-import toast from "react-hot-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import Cookies from "js-cookie";
 import Link from "next/link";
-import { ROUTES } from "@/Routes";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { z } from "zod";
 
 const LoginSchema = z.object({
   email: z.string().min(1, {
@@ -41,7 +41,7 @@ const LoginSchema = z.object({
 export type LoginUserFormType = z.infer<typeof LoginSchema>;
 
 export function LoginForm() {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   // const redirect = searchParams.get("redirect");
   const router = useRouter();
   const form = useForm<LoginUserFormType>({
